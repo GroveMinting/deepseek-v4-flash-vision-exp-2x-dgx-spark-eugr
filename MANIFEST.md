@@ -13,6 +13,7 @@
 - `uninstall.sh` - removes only package-owned installed paths.
 - `recipes/deepseek-v4-flash-vision-exp-base-fp8.yaml` - TP2 native-vision diagnostic recipe without DSpark.
 - `recipes/deepseek-v4-flash-vision-exp-dspark-fp8.yaml` - TP2 native-vision DSpark K6 serving recipe.
+- `results/2026-09-05-two-spark-validation.md` - sanitized live functional, performance, provenance, and CI receipt.
 - `mods/deepseek-v4-vision-native-check/run.sh` - read-only startup gate entry point.
 - `mods/deepseek-v4-vision-native-check/check_native_runtime.py` - native feature and image-provenance checker.
 - `tools/deepseek-v4-vision-build.sh` - isolated, pinned eugr/vLLM/B12X image builder.

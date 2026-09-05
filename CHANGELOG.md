@@ -10,6 +10,8 @@ All notable changes to this project will be documented here.
 - Share the installed eugr wheel cache with the isolated build and reuse a
   complete vLLM wheel only when its commit and SM121 markers match the lock.
 - Add build-context and wheel-reuse diagnostics to `--prepare-only`.
+- Record successful two-Spark text, native vision, tool-calling, DSpark,
+  provenance, and C1/C8 throughput validation.
 
 ## 0.1.1 - 2026-09-04
 

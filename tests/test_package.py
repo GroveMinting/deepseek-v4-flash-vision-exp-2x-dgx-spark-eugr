@@ -111,8 +111,34 @@ def test_documentation_and_boundaries() -> None:
         assert value in readme
         assert value in attribution
     assert "no vision sidecar" in readme.lower()
-    assert "not been benchmarked locally" in readme
+    assert "Validated Performance" in readme
+    assert "49.204 tok/s" in readme
+    assert "89.908 tok/s" in readme
+    assert "results/2026-09-05-two-spark-validation.md" in readme
     assert "No third-party patch file" in attribution
+
+
+def test_validation_evidence() -> None:
+    evidence = (ROOT / "results/2026-09-05-two-spark-validation.md").read_text(
+        encoding="utf-8"
+    )
+    for value in (
+        MODEL,
+        MODEL_REVISION,
+        EUGR_COMMIT,
+        VLLM_COMMIT,
+        B12X_COMMIT,
+        "49.204 tok/s",
+        "89.908 tok/s",
+        "red blue",
+        "Container restarts | 0",
+    ):
+        assert value in evidence
+    assert "full 327K" not in evidence
+    assert not re.search(
+        r"\b(?:10(?:\.\d{1,3}){3}|192\.168(?:\.\d{1,3}){2}|172\.(?:1[6-9]|2\d|3[01])(?:\.\d{1,3}){2})\b",
+        evidence,
+    )
 
 
 def test_repository_hygiene() -> None:
@@ -186,6 +212,7 @@ if __name__ == "__main__":
     test_lock_is_authoritative()
     test_b12x_commit_fetch_rewrite()
     test_documentation_and_boundaries()
+    test_validation_evidence()
     test_repository_hygiene()
     test_lifecycle_lists_owned_paths()
     test_installer_and_uninstaller()

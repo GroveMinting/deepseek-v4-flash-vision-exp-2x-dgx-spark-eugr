@@ -191,27 +191,36 @@ The benchmark reports TTFT, per-request decode rate, aggregate throughput, and
 DSpark acceptance-counter deltas. Use the same prompt and generation settings
 when comparing profiles.
 
-## Performance Expectation
+## Validated Performance
 
-This package has not been benchmarked locally on a two-Spark cluster. Based on
-published two-Spark Vision-Exp results, a reasonable target is:
+This package was validated on two DGX Sparks on 2026-09-05. The benchmark used
+its default implementation-guide prompt, `temperature=0`, thinking disabled,
+and exactly 512 generated tokens per request.
 
-| Workload | Expected range |
-|---|---:|
-| Natural prose, one request | 25-40 tok/s |
-| Code or structured output, one request | 50-70 tok/s |
-| Aggregate at concurrency 6-8 | 80-110 tok/s |
+| Metric | C1 median | C8 median |
+|---|---:|---:|
+| TTFT | 0.352 s | 0.393 s |
+| Per-request decode | 50.917 tok/s | 11.589 tok/s |
+| Aggregate end-to-end | 49.204 tok/s | 89.908 tok/s |
+| DSpark acceptance | 41.8% | 40.6% |
 
-The matching vLLM/B12X/model reference reports 36.0 tok/s prose and 66.4 tok/s
-structured output with DSpark K6. PixelML reports 36.9-48.7
-tok/s single-stream and up to 112.7 tok/s aggregate on other pinned runtime
-compositions. These remain external measurements, not results claimed for the
-installed hardware. Treat roughly 30-35 tok/s natural prose as the initial target.
+C8 delivered 1.83 times the C1 aggregate throughput. The functional smoke
+test also passed deterministic text, native red/blue image understanding,
+structured tool calling, and active DSpark counters. The container remained
+running with zero restarts and advertised the configured 327,680-token limit.
+
+The complete sanitized commands, samples, smoke results, provenance, CI run,
+and limitations are recorded in
+[`results/2026-09-05-two-spark-validation.md`](results/2026-09-05-two-spark-validation.md).
+
+The matching external vLLM/B12X/model reference reports 36.0 tok/s prose and
+66.4 tok/s structured output with DSpark K6. Workload and measurement
+boundaries differ, so those values should not be directly compared to this
+implementation-oriented benchmark.
 
 The packaged orchestration revision differs from the now-unfetchable eugr
-commit recorded by the measured reference. The vLLM, B12X, model, recipe, and
-hardware geometry remain matched, but a successful build and live smoke test
-are required before publishing benchmark claims for this repository.
+commit recorded by that reference, but the successful live build confirmed
+the locked vLLM, B12X, model, and SM121 composition used by this package.
 
 ## Context And Memory
 
