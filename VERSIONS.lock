@@ -1,0 +1,10 @@
+# Authoritative source and model pins for this package.
+EUGR_REPO="https://github.com/eugr/spark-vllm-docker.git"
+EUGR_COMMIT="acd5d2a253704ad71096c5f23ac45e7cf57442af"
+VLLM_REPO="https://github.com/shige0501/vllm"
+VLLM_COMMIT="f6892f8fed7cb01e7df8d96f09c7f96167f0ef43"
+B12X_REPO="https://github.com/shige0501/b12x.git"
+B12X_COMMIT="fbba9c93b37191d258b89a40962603cc4c68b085"
+MODEL_ID="deepseek-ai/DeepSeek-V4-Flash-Vision-Exp"
+MODEL_REVISION="e46e16bf6035c6f317eb2ac7458eb0362926d402"
+IMAGE_TAG="vllm-node-dsv4fv"
